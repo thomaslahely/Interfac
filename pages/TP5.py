@@ -4,8 +4,7 @@ import pandas as pd
 import math
 from pathlib import Path
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-import App_TP5 as TP5
+import Interfac.App_TP7 as TP5
 st.set_page_config(page_title="TP5 - Vectorisation Avancée", layout="wide")
 
 # --- Titre ---
