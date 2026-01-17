@@ -1,213 +1,217 @@
 import streamlit as st
-import TP4
+import Interfac.pages.TP4 as TP4
+import matplotlib.pyplot as plt
+import io
 import pandas as pd
-import math
 
-st.set_page_config(page_title="TP3 - Vectorisation & Modèles", layout="wide")
+st.set_page_config(page_title="TP3 - Analyse de Corpus", layout="wide")
 
-st.title("TP3 - Vectorisation de Texte et Modèles de Langage")
+st.title("TP3 - Analyse et Prétraitement de Corpus")
 st.markdown("""
-Cette interface permet de tester les fonctions du TP3 : Encodage, One-Hot, Bag-of-Words, TF-IDF, BM25, Normalisation et N-grammes.
+Cette interface permet de tester les fonctions du TP3 : segmentation, tokenisation, n-grammes, statistiques et pipelines de prétraitement.
 """)
 
-# --- Sidebar: Vocabulaire ---
-st.sidebar.header("Configuration Vocabulaire")
-default_vocab_txt = "chat, chien, dort, mange, maison, souris, fromage"
-vocab_input = st.sidebar.text_area("Mots du vocabulaire (séparés par virgule)", value=default_vocab_txt)
+st.sidebar.header("Configuration")
+langue = st.sidebar.selectbox("Langue", ["fr", "en"])
 
-# Construction du vocabulaire
-mots_vocab = [m.strip().lower() for m in vocab_input.split(",") if m.strip()]
-vocab_direct = {mot: i for i, mot in enumerate(mots_vocab)}
-vocab_inverse = {i: mot for i, mot in enumerate(mots_vocab)}
+st.header("1. Données d'entrée")
+input_method = st.radio("Source des données :", ["Texte direct", "Exemple par défaut"])
 
-st.sidebar.write("Vocabulaire actuel :")
-st.sidebar.json(vocab_direct)
+if input_method == "Texte direct":
+    raw_text = st.text_area("Entrez votre texte ici :", height=150, 
+                            value="Bonjour tout le monde. C'est un test, n'est-ce pas ? 12.05.2025 est une date.")
+else:
+    raw_text = "Bonjour tout le monde. C'est un test, n'est-ce pas ? Le Dr. Martin habite à Paris. 12.05.2025 est une date importante. L'intelligence artificielle est fascinante."
+    st.info(f"Texte utilisé : {raw_text}")
 
 # --- Tabs ---
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
-    "Encodage & One-Hot", 
-    "Bag of Words", 
-    "TF-IDF & BM25",
-    "Normalisation",
-    "N-grammes"
+    "Segmentation & Tokenisation", 
+    "N-grammes", 
+    "Statistiques & Vocabulaire",
+    "Filtrage & Morphologie",
+    "Comparaison Pipelines"
 ])
 
-# --- Tab 1: Encodage & One-Hot ---
+# --- Tab 1: Segmentation & Tokenisation ---
 with tab1:
-    st.subheader("Encodage / Décodage (Indices)")
-    col1, col2 = st.columns(2)
+    st.subheader("Segmentation en phrases")
     
+    col1, col2 = st.columns(2)
     with col1:
-        txt_indices = st.text_input("Texte à encoder (Indices)", value="chat dort")
-        if st.button("Encoder (Indices)"):
-            res = TP4.texte_vers_indices(txt_indices, vocab_direct)
-            st.write(f"Indices : {res}")
-            
+        opt_dates = st.checkbox("Gérer dates (JJ.MM.AAAA)", value=True)
+        opt_decimaux = st.checkbox("Gérer décimaux (3.14)", value=True)
     with col2:
-        indices_input = st.text_input("Indices à décoder (ex: 0, 2)", value="0, 2")
-        if st.button("Décoder (Indices)"):
-            try:
-                idx_list = [int(x.strip()) for x in indices_input.split(",") if x.strip()]
-                res = TP4.indices_vers_texte(idx_list, vocab_inverse)
-                st.success(f"Texte : {res}")
-            except ValueError:
-                st.error("Erreur de format des indices.")
-
+        opt_sigles = st.checkbox("Gérer sigles (P.D.G.)", value=False)
+        abbr_input = st.text_input("Abréviations (séparées par virgule)", value="Dr., M., Mme.")
+    
+    abbr_list = [a.strip() for a in abbr_input.split(",") if a.strip()]
+    options_seg = {
+        "gerer_dates": opt_dates,
+        "gerer_decimaux": opt_decimaux,
+        "gerer_sigles": opt_sigles
+    }
+    
+    if st.button("Segmenter Phrases"):
+        phrases = TP4.segmenter_phrases(raw_text, abreviations=abbr_list, option=options_seg)
+        st.write(f"**Nombre de phrases :** {len(phrases)}")
+        for i, p in enumerate(phrases):
+            st.text(f"{i+1}: {p}")
+            
     st.markdown("---")
-    st.subheader("One-Hot Encoding")
+    st.subheader("Tokenisation")
+    keep_tags = st.checkbox("Garder balises HTML", value=False)
     
-    txt_onehot = st.text_input("Texte à encoder (One-Hot)", value="chat maison")
-    if st.button("Encoder (One-Hot)"):
-        vecs = TP4.one_hot_encode_mots(txt_onehot, vocab_direct)
-        st.write("Vecteurs One-Hot :")
-        st.write(vecs)
+    if st.button("Tokeniser Document"):
+        # On refait la segmentation pour être sûr d'avoir les dernières options
+        doc_tokens = TP4.tokeniser_document(raw_text, abreviations=abbr_list, option=options_seg, balise=keep_tags)
+        st.write("**Résultat (Liste de listes de tokens) :**")
+        st.json(doc_tokens)
         
-        # Décodage immédiat pour vérification
-        decoded = TP4.one_hot_decode(vecs, vocab_inverse)
-        st.info(f"Reconstruction : {decoded}")
+        flat_tokens = TP4.aplatir_tokens(doc_tokens)
+        st.write(f"**Total tokens :** {len(flat_tokens)}")
+        st.write(f"**Hapax (occurence unique) :** {TP4.tokens_hapax(flat_tokens)}")
 
-# --- Tab 2: Bag of Words ---
+# --- Tab 2: N-grammes ---
 with tab2:
-    st.subheader("Bag of Words (BoW)")
+    st.subheader("Génération de N-grammes")
+    n_val = st.slider("Taille N (N-gramme)", 1, 5, 2)
+    niveau = st.selectbox("Niveau", ["phrase", "document"])
+    par_phrase = st.checkbox("Respecter frontières de phrases", value=True, help="Si coché, ne crée pas de n-grammes à cheval sur deux phrases.")
     
-    txt_bow = st.text_input("Texte pour BoW", value="chat mange chat")
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.markdown("**BoW Binaire**")
-        if st.button("Générer BoW Binaire"):
-            vec = TP4.bag_of_words_binaire(txt_bow, vocab_direct)
-            st.write(f"Vecteur : {vec}")
-            decoded = TP4.bag_of_words_decode(vec, vocab_inverse)
-            st.write(f"Décodé (ordre vocab) : {decoded}")
-            
-    with col2:
-        st.markdown("**BoW Occurrences**")
-        if st.button("Générer BoW Occurrences"):
-            vec = TP4.bag_of_words_occurrences(txt_bow, vocab_direct)
-            st.write(f"Vecteur : {vec}")
-            decoded = TP4.bag_of_words_occurrences_decode(vec, vocab_inverse)
-            st.write(f"Décodé (répété) : {decoded}")
+    if st.button("Générer N-grammes"):
+        # Préparation des données selon le niveau attendu par la fonction
+        doc_tokens = TP4.tokeniser_document(raw_text, abreviations=abbr_list, option=options_seg)
+        
+        if niveau == "phrase":
+            # Pour la démo, on montre les n-grammes de la première phrase ou de toutes les phrases séparément
+            st.write("N-grammes par phrase :")
+            for i, phrase in enumerate(doc_tokens):
+                grams = TP4.generer_ngrammes(phrase, n_val, niveau='phrase')
+                st.write(f"Phrase {i+1}: {grams}")
+        else:
+            # Niveau document
+            grams = TP4.generer_ngrammes(doc_tokens, n_val, niveau='document', par_phrase=par_phrase)
+            st.write(f"N-grammes du document ({len(grams)}) :")
+            st.write(grams)
 
-# --- Tab 3: TF-IDF & BM25 ---
+# --- Tab 3: Statistiques & Vocabulaire ---
 with tab3:
-    st.subheader("TF-IDF & BM25")
+    st.subheader("Analyse Statistique")
     
-    st.write("Définissez un petit corpus pour tester les calculs globaux.")
-    corpus_txt = st.text_area("Corpus (une phrase par ligne)", 
-                              value="chat dort\nchien dort\nchat mange\nchien mange maison")
-    corpus = [line.strip() for line in corpus_txt.split("\n") if line.strip()]
+    # On crée un mini corpus avec 1 document pour utiliser les fonctions de corpus
+    corpus_demo = {"doc1": TP4.tokeniser_document(raw_text, abreviations=abbr_list, option=options_seg)}
+    stopwords_list = TP4.construire_liste_stopwords(langue)
     
-    st.write(f"Nombre de documents : {len(corpus)}")
+    if st.button("Calculer Statistiques"):
+        stats = TP4.statistiques_globales_corpus(corpus_demo, stopwords_list)
+        st.json(stats)
+        
+        st.subheader("Distribution")
+        dist_len_mots = TP4.distribution_longueur_mots(corpus_demo)
+        st.bar_chart(pd.Series(dist_len_mots))
+        
+        st.subheader("Top Tokens")
+        top = TP4.tokens_plus_frequents(corpus_demo, n=10)
+        if top:
+            df_top = pd.DataFrame(top, columns=["Token", "Fréquence"])
+            st.dataframe(df_top)
+        else:
+            st.warning("Pas assez de tokens.")
+
+# --- Tab 4: Filtrage & Morphologie ---
+with tab4:
+    st.subheader("Pipeline de Nettoyage")
     
     col1, col2 = st.columns(2)
-    
     with col1:
-        st.markdown("### TF-IDF")
-        methode_idf = st.selectbox("Méthode IDF", ["classique", "smooth", "smooth_P1", "logplus", "max", "bm25", "bm25_smooth"])
-        
-        if st.button("Calculer TF-IDF"):
-            # Afficher IDF global
-            idf_vec = TP4.calcul_idf(corpus, vocab_direct, methode=methode_idf)
-            df_idf = pd.DataFrame([idf_vec], columns=mots_vocab, index=["IDF"])
-            st.write("Vecteur IDF Global :")
-            st.dataframe(df_idf)
-            
-            # Matrice TF-IDF
-            matrice = TP4.calcul_tf_idf(corpus, vocab_direct, methode_idf=methode_idf)
-            df_tfidf = pd.DataFrame(matrice, columns=mots_vocab, index=[f"Doc {i}" for i in range(len(corpus))])
-            st.write("Matrice TF-IDF :")
-            st.dataframe(df_tfidf)
-
-    with col2:
-        st.markdown("### BM25")
-        k1 = st.number_input("k1", 0.0, 5.0, 1.5)
-        b = st.number_input("b", 0.0, 1.0, 0.75)
-        
-        if st.button("Calculer BM25"):
-            matrice_bm25 = TP4.calcul_bm25(corpus, vocab_direct, k1=k1, b=b)
-            df_bm25 = pd.DataFrame(matrice_bm25, columns=mots_vocab, index=[f"Doc {i}" for i in range(len(corpus))])
-            st.write("Matrice BM25 :")
-            st.dataframe(df_bm25)
-
-# --- Tab 4: Normalisation ---
-with tab4:
-    st.subheader("Normalisation de Vecteurs")
+        st.markdown("**Filtrage**")
+        f_alpha = st.checkbox("Supprimer non-alphabétiques", value=True)
+        f_stop = st.checkbox("Supprimer stopwords", value=True)
+        f_len = st.number_input("Longueur min", 0, 10, 3)
+        f_occ_min = st.number_input("Occurrences min", 1, 10, 1)
     
-    vec_input = st.text_input("Vecteur (séparé par virgule)", value="1.0, 2.0, 3.0, 4.0")
-    try:
-        vec_float = [float(x.strip()) for x in vec_input.split(",") if x.strip()]
+    with col2:
+        st.markdown("**Morphologie**")
+        do_stem = st.checkbox("Stemming", value=False)
+        do_lemm = st.checkbox("Lemmatisation", value=False)
+    
+    if st.button("Appliquer Pipeline"):
+        # Tokenisation initiale
+        doc_tokens = TP4.tokeniser_document(raw_text, abreviations=abbr_list, option=options_seg)
+        tokens_flat = TP4.aplatir_tokens(doc_tokens)
         
-        col1, col2, col3, col4 = st.columns(4)
+        st.write("Tokens initiaux :", tokens_flat)
         
-        with col1:
-            if st.button("L1 (Somme=1)"):
-                res = TP4.normaliser_L1(vec_float)
-                st.write(res)
-                st.write(f"Somme : {sum(res):.2f}")
-                
-        with col2:
-            if st.button("L2 (Euclidienne)"):
-                res = TP4.normaliser_L2(vec_float)
-                st.write(res)
-                norme = math.sqrt(sum(x**2 for x in res))
-                st.write(f"Norme : {norme:.2f}")
-                
-        with col3:
-            if st.button("Min-Max [0,1]"):
-                res = TP4.normaliser_minmax(vec_float)
-                st.write(res)
-                
-        with col4:
-            if st.button("Z-Score (Std)"):
-                res = TP4.standardiser_zscore(vec_float)
-                st.write(res)
-                
-    except ValueError:
-        st.error("Veuillez entrer des nombres valides.")
+        # Config
+        config = {
+            "non_alphabetiques": f_alpha,
+            "stopwords": f_stop,
+            "longueur_min": f_len,
+            "occ_min": f_occ_min,
+            "stemming": do_stem,
+            "lemmatisation": do_lemm
+        }
+        
+        # 1. Filtrage
+        tokens_filtered = TP4.pipeline_filtrage(tokens_flat, config, langue)
+        st.write("Après filtrage :", tokens_filtered)
+        
+        # 2. Morphologie
+        tokens_final = TP4.pipeline_morphologique(tokens_filtered, config, langue)
+        st.success(f"Résultat final ({len(tokens_final)} tokens) :")
+        st.write(tokens_final)
 
-# --- Tab 5: N-grammes ---
+# --- Tab 5: Comparaison Pipelines ---
 with tab5:
-    st.subheader("Vectorisation N-grammes")
+    st.subheader("Comparaison de Configurations (A, B, C, D, E)")
+    st.markdown("""
+    - **A**: Brut
+    - **B**: Filtré (Stopwords, Len>3, Alpha)
+    - **C**: B + Stemming
+    - **D**: B + Lemmatisation
+    - **E**: B + Stemming + Lemmatisation
+    """)
     
-    txt_ng = st.text_input("Texte N-grammes", value="le chat dort bien sur le tapis")
-    n_val = st.slider("N (taille)", 1, 3, 2)
-    
-    # Génération dynamique du vocabulaire n-grammes pour la démo
-    # On prend les n-grammes du texte lui-même pour être sûr d'avoir des matches
-    tokens = txt_ng.lower().split()
-    ngrams_list = []
-    if len(tokens) >= n_val:
-        for i in range(len(tokens) - n_val + 1):
-            ngrams_list.append(tuple(tokens[i : i + n_val]))
-    
-    # On ajoute quelques faux pour le test
-    ngrams_list.append(("faux", "ngram"))
-    
-    # Construction dico
-    dico_direct_ng, dico_inverse_ng = TP4.construire_dictionnaire_ngrammes(ngrams_list)
-    vocab_ng_list = sorted(list(dico_direct_ng.keys()))
-    
-    st.write("Vocabulaire N-grammes généré (basé sur le texte + bruit) :")
-    st.write(vocab_ng_list)
-    
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        if st.button("BoW N-grammes (Binaire)"):
-            vec = TP4.encoder_bow_ngrammes(txt_ng, n_val, vocab_ng_list, dico_direct_ng, 'binaire')
-            st.write(vec)
+    if st.button("Lancer Comparaison"):
+        # Création corpus
+        corpus_demo = {"doc1": TP4.tokeniser_document(raw_text, abreviations=abbr_list, option=options_seg)}
+        
+        # On doit adapter légèrement car 'analyser_configurations' attend un corpus brut ou tokenisé ?
+        # Regardons le code de TP3.py : 'pipeline_pretraitement' prend un corpus.
+        # 'analyser_configurations' appelle 'pipeline_pretraitement'.
+        # 'pipeline_pretraitement' appelle 'aplatir_tokens' si c'est une liste de listes.
+        # Donc on peut passer notre corpus_demo tokenisé.
+        
+        # Cependant, 'analyser_configurations' n'est pas complètement implémentée dans l'extrait lu (il manque la fin).
+        # Je vais implémenter la logique ici manuellement pour être sûr.
+        
+        configs = {
+            "A (Brut)": {"stopwords": False, "longueur_min": 0, "non_alphabetiques": False, "stemming": False, "lemmatisation": False},
+            "B (Filtré)": {"stopwords": True, "longueur_min": 3, "non_alphabetiques": True, "stemming": False, "lemmatisation": False},
+            "C (Filtré+Stem)": {"stopwords": True, "longueur_min": 3, "non_alphabetiques": True, "stemming": True, "lemmatisation": False},
+            "D (Filtré+Lem)": {"stopwords": True, "longueur_min": 3, "non_alphabetiques": True, "stemming": False, "lemmatisation": True},
+            "E (Complet)": {"stopwords": True, "longueur_min": 3, "non_alphabetiques": True, "stemming": True, "lemmatisation": True},
+        }
+        
+        results = []
+        
+        for name, conf in configs.items():
+            # Traitement
+            corpus_traite = TP4.pipeline_pretraitement(corpus_demo, conf, langue)
+            tokens = corpus_traite["doc1"]
             
-    with col2:
-        if st.button("TF N-grammes"):
-            vec = TP4.encoder_tf_ngrammes(txt_ng, n_val, vocab_ng_list, dico_direct_ng)
-            st.write(vec)
+            # Stats
+            vocab = TP4.distribution_occurrences_tokens(corpus_traite)
+            stats_lex = TP4.indicateurs_lexicaux(corpus_traite)
             
-    with col3:
-        if st.button("TF-IDF N-grammes"):
-            # IDF fictif (tout à 1.0 pour simplifier)
-            idf_fictif = [1.0] * len(dico_direct_ng)
-            vec = TP4.encoder_tfidf_ngrammes(txt_ng, n_val, vocab_ng_list, dico_direct_ng, idf_fictif)
-            st.write(vec)
-            st.caption("(IDF fixé à 1.0 pour ce test)")
+            res_row = {
+                "Config": name,
+                "Tokens": len(tokens),
+                "Vocabulaire": len(vocab),
+                "Richesse": f"{stats_lex['richesse_lexicale']:.2f}",
+                "Hapax": f"{stats_lex['taux_hapax']:.2f}"
+            }
+            results.append(res_row)
+            
+        st.table(pd.DataFrame(results))

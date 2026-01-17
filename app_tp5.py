@@ -7,11 +7,11 @@ from pathlib import Path
 import shutil
 import os
 
-st.set_page_config(page_title="TP6 - Moteur de Recherche", layout="wide")
+st.set_page_config(page_title="TP5 - Moteur de Recherche", layout="wide")
 
-st.title("TP6 - Moteur de Recherche et Analyse de Corpus")
+st.title("TP5 - Moteur de Recherche et Analyse de Corpus")
 st.markdown("""
-Cette interface permet de tester les fonctionnalités du TP6 : Indexation, Recherche, Évaluation et Analyse Structurelle.
+Cette interface permet de tester les fonctionnalités du TP5 : Indexation, Recherche, Évaluation et Analyse Structurelle.
 """)
 
 # --- Sidebar: Configuration ---

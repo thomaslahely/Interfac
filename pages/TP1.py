@@ -1,163 +1,169 @@
 import streamlit as st
-import TP2
+import sys
 import os
 import io
 from pathlib import Path
-import tempfile
+from contextlib import redirect_stdout
 
-st.set_page_config(page_title="TP1 - Traitement de Texte", layout="wide")
+# Configuration de la page
+st.set_page_config(page_title="TP1 - Exploration de Corpus", layout="wide")
 
-st.title("TP1 - Interface de Test")
+# Gestion de l'import dynamique de TP1
+# TP1.py est dans Interfac/
+# L'app est dans Interfac/pages/
+# On doit remonter d'un niveau pour importer TP1
+current_dir = Path(__file__).resolve().parent
+parent_dir = current_dir.parent
+if str(parent_dir) not in sys.path:
+    sys.path.append(str(parent_dir))
+
+try:
+    import TP1
+except ImportError as e:
+    st.error(f"Erreur d'importation de TP1 : {e}")
+    st.info("Assurez-vous que TP1.py est bien dans le dossier Interfac/")
+    st.stop()
+
+st.title("TP1 - Exploration et Analyse de Corpus")
 st.markdown("""
-Cette interface permet de tester les fonctions du TP1 pour le traitement de texte.
-Entrez un texte ou téléchargez un fichier pour commencer.
+Cette interface permet de tester les fonctions de base du TP1 : exploration de dossiers, 
+comptage de fichiers, vérifications de cohérence et statistiques basiques.
 """)
 
+# --- Sidebar: Sélection du Corpus ---
+st.sidebar.header("Configuration")
 
-# Input section
-st.header("1. Entrée")
-input_method = st.radio("Choisir la méthode d'entrée :", ["Texte direct", "Fichier"])
+# Recherche automatique du dossier Textes
+default_path = "Textes"
+root_path = Path(__file__).resolve().parent.parent.parent # Remonte à la racine du workspace
+potential_textes = root_path / "Textes"
+if potential_textes.exists():
+    default_path = str(potential_textes)
 
-user_text = ""
-uploaded_file = None
+corpus_path_str = st.sidebar.text_input("Chemin du corpus à analyser", value=default_path)
+corpus_path = Path(corpus_path_str)
 
-if input_method == "Texte direct":
-    user_text = st.text_area("Entrez votre texte ici :", height=150, value="Ceci est un texte d'exemple avec des accents (é, à), du HTML <b>gras</b> et de la ponctuation !!!")
+status_container = st.sidebar.empty()
+
+if corpus_path.exists() and corpus_path.is_dir():
+    status_container.success(f"✅ Dossier trouvé : {corpus_path.name}")
 else:
-    uploaded_file = st.file_uploader("Télécharger un fichier texte", type=["txt"])
-    if uploaded_file is not None:
-        stringio = io.StringIO(uploaded_file.getvalue().decode("utf-8"))
-        user_text = stringio.read()
-        st.text_area("Contenu du fichier :", value=user_text, height=150, disabled=True)
+    status_container.error("❌ Dossier introuvable")
+    st.warning("Veuillez entrer un chemin valide vers un dossier (ex: 'Textes').")
+    st.stop()
 
-if user_text:
-    st.header("2. Traitements")
+# --- Helpers ---
+def capture_output(func, *args, **kwargs):
+    """Capture le print() d'une fonction pour l'afficher dans Streamlit"""
+    f = io.StringIO()
+    with redirect_stdout(f):
+        res = func(*args, **kwargs)
+    return f.getvalue(), res
+
+# --- Tabs ---
+tab1, tab2, tab3 = st.tabs(["📂 Exploration", "📊 Statistiques", "🛠️ Vérifications"])
+
+# --- Tab 1 : Exploration ---
+with tab1:
+    st.header("Exploration de l'arborescence")
     
-    tab1, tab2, tab3, tab4 = st.tabs(["Standardisation", "Accents", "Ponctuation", "Langue"])
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.subheader("1. Structure (Arbre)")
+        st.caption("Fonction : `afficher_structure`")
+        if st.button("Afficher la structure"):
+            output, _ = capture_output(TP1.afficher_structure, corpus_path)
+            st.text(output) # On utilise st.text pour préserver l'espacement monospace
 
-    with tab1:
-        st.subheader("Standardisation")
-        col1, col2, col3 = st.columns(3)
-        
-        with col1:
-            if st.button("Minuscules"):
-                res = TP2.convertir_vers_minuscule(user_text)
-                st.success(res)
-        
-        with col2:
-            if st.button("Supprimer HTML/XML"):
-                res = TP2.supprimer_balises_html_xml(user_text)
-                st.success(res)
-                
-        with col3:
-            if st.button("Normaliser Unicode (NFC)"):
-                res = TP2.normaliser_unicode(user_text)
-                st.success(res)
+    with col2:
+        st.subheader("2. Liste des documents")
+        st.caption("Fonction : `lister_document`")
+        if st.button("Lister les fichiers (.txt)"):
+            output, _ = capture_output(TP1.lister_document, corpus_path)
+            st.text_area("Résultat", output, height=300)
 
-    with tab2:
-        st.subheader("Accents")
-        col1, col2 = st.columns(2)
+    st.markdown("---")
+    st.subheader("3. Sous-corpus (Dossiers de 1er niveau)")
+    st.caption("Fonction : `compter_sous_corpus`")
+    
+    if st.button("Compter les sous-corpus"):
+        # Cette fonction retourne un tuple (nb, liste) + fait un print
+        output, res = capture_output(TP1.compter_sous_corpus, corpus_path)
+        nb, noms = res
         
-        with col1:
-            if st.button("Corriger Accents"):
-                res = TP2.corriger_accents(user_text)
-                st.success(res)
-        
-        with col2:
-            if st.button("Uniformiser Accents"):
-                res = TP2.uniformiser_accents(user_text)
-                st.success(res)
-        
-        st.markdown("---")
-        st.write("Pipeline complet :")
-        opt_corriger = st.checkbox("Corriger erreurs", value=True)
-        opt_uniformiser = st.checkbox("Uniformiser", value=True)
-        if st.button("Traiter Accents (Options)"):
-            options = {"corriger_erreurs": opt_corriger, "uniformiser": opt_uniformiser}
-            res = TP2.traiter_accents(user_text, options)
-            st.success(res)
+        st.metric("Nombre de sous-corpus", nb)
+        st.write("Noms des dossiers :", noms)
+        with st.expander("Voir la sortie console"):
+            st.code(output)
 
-    with tab3:
-        st.subheader("Ponctuation")
-        
-        col1, col2 = st.columns(2)
-        with col1:
-            if st.button("Supprimer toute ponctuation"):
-                st.success(TP2.supprimer_ponctuation(user_text))
-            if st.button("Remplacer par <PONCT>"):
-                st.success(TP2.remplacer_ponctuation(user_text))
-            if st.button("Espacer ponctuation"):
-                st.success(TP2.espacer_ponctuation(user_text))
-            if st.button("Normaliser (guillemets, tirets...)"):
-                st.success(TP2.normaliser_ponctuation(user_text))
-
-        with col2:
-            if st.button("Réduire répétitions (!!! -> !)"):
-                st.success(TP2.reduire_ponctuation_multiple(user_text))
-            if st.button("Remplacement contextuel (! -> <EXCLAMATION>)"):
-                st.success(TP2.remplacer_ponctuation_contextuelle(user_text))
+# --- Tab 2 : Statistiques ---
+with tab2:
+    st.header("Statistiques du Corpus")
+    
+    col_stat1, col_stat2, col_stat3 = st.columns(3)
+    
+    with col_stat1:
+        st.subheader("Nombre de Documents")
+        if st.button("Compter (Total)"):
+            output, count = capture_output(TP1.compter_documents, corpus_path)
+            st.metric("Total fichiers .txt", count)
             
-            st.markdown("**Supprimer sauf...**")
-            keep_list = st.text_input("Caractères à garder (ex: . ?)", value=". ?")
-            if st.button("Supprimer sauf liste"):
-                chars = [c.strip() for c in keep_list.split()]
-                st.success(TP2.supprimer_ponctuation_sauf(user_text, chars))
-
-    with tab4:
-        st.subheader("Langue")
-        
-        st.write("Analyse du contenu :")
-        if st.button("Vérifier langue contenu"):
-            lang = TP2.verifier_langue_contenu(user_text)
-            st.info(f"Langue détectée : {lang}")
-
-        if uploaded_file:
-            st.markdown("---")
-            st.write("Analyse basée sur le fichier :")
-            # Save to temp file to use Path functions
-            with tempfile.NamedTemporaryFile(delete=False, suffix=f"_{uploaded_file.name}") as tmp:
-                tmp.write(uploaded_file.getvalue())
-                tmp_path = Path(tmp.name)
+    with col_stat2:
+        st.subheader("Répartition Langues")
+        if st.button("Compter (FR / EN)"):
+            output, data = capture_output(TP1.compter_par_langue, corpus_path)
+            st.json(data)
+            st.bar_chart(data)
             
-            col1, col2 = st.columns(2)
-            with col1:
-                if st.button("Détecter langue (Nom fichier)"):
-                    # We use the original filename for detection logic if possible, 
-                    # but the function takes a Path object. 
-                    # Let's mock a Path with the original name.
-                    mock_path = Path(uploaded_file.name)
-                    lang = TP2.detecter_langue_nom_fichier(mock_path)
-                    st.info(f"Langue (Nom) : {lang}")
-            
-            with col2:
-                if st.button("Vérifier cohérence"):
-                    # For coherence, we need the file to exist and have the name.
-                    # The temp file has a mangled name. 
-                    # We can't easily use the existing function 'verifier_coherence_langue_contenu' 
-                    # as is because it reads from the path provided.
-                    # We will manually call the logic here for display.
-                    
-                    lang_nom = TP2.detecter_langue_nom_fichier(Path(uploaded_file.name))
-                    lang_content = TP2.verifier_langue_contenu(user_text)
-                    is_coherent = (lang_nom == lang_content) if (lang_nom != "inconnu" and lang_content != "indetermine") else True
-                    
-                    st.metric("Cohérence", "Oui" if is_coherent else "Non", delta=f"Nom: {lang_nom} / Contenu: {lang_content}")
-            
-            os.unlink(tmp_path)
+    with col_stat3:
+        st.subheader("Estimations Étudiants")
+        if st.button("Compter Étudiants"):
+            output, count = capture_output(TP1.compter_etudiants, corpus_path)
+            st.metric("Nombre d'étudiants uniques", count, help="Basé sur les noms de fichiers sans suffixe _fr/_en")
 
-        st.markdown("---")
-        st.subheader("Analyse de dossier")
-        dir_path = st.text_input("Chemin du dossier à analyser :", value=".")
-        if st.button("Signaler incohérences (Dossier)"):
-            p = Path(dir_path)
-            if p.exists() and p.is_dir():
-                anomalies = TP2.signaler_incoherences_langue(p)
-                if anomalies:
-                    st.error(f"{len(anomalies)} anomalie(s) détectée(s) :")
-                    for a in anomalies:
-                        st.write(a)
-                else:
-                    st.success("Aucune incohérence détectée.")
+    st.markdown("---")
+    st.subheader("Répartition détaillée par Sous-Corpus")
+    st.caption("Fonction : `repartition_langue_par_sous_corpus`")
+    if st.button("Générer Tableau Répartition"):
+        output, _ = capture_output(TP1.repartition_langue_par_sous_corpus, corpus_path)
+        st.text(output) # Affichage du tableau formaté texte (print)
+
+# --- Tab 3 : Vérifications ---
+with tab3:
+    st.header("Contrôle Qualité")
+    
+    col_check1, col_check2 = st.columns(2)
+    
+    with col_check1:
+        st.subheader("Extensions Incorrectes")
+        st.write("Vérifie que tous les fichiers sont bien des `.txt`.")
+        if st.button("Vérifier extensions"):
+            output, problemes = capture_output(TP1.verifier_extensions, corpus_path)
+            
+            if not problemes:
+                st.success("✅ Tous les fichiers ont l'extension .txt")
             else:
-                st.error("Le chemin spécifié n'existe pas ou n'est pas un dossier.")
+                st.error(f"❌ {len(problemes)} fichiers incorrects détectés")
+                for p in problemes:
+                    st.write(f"- `{p}`")
+    
+    with col_check2:
+        st.subheader("Correspondance Langues")
+        st.write("Vérifie que chaque étudiant a bien une paire FR/EN.")
+        if st.button("Vérifier paires FR/EN"):
+            output, anomalies = capture_output(TP1.verifier_correspondance_langues, corpus_path)
+            
+            if not anomalies:
+                st.success("✅ Toutes les paires sont complètes")
+            else:
+                st.warning(f"⚠️ {len(anomalies)} anomalies détectées")
+                for a in anomalies:
+                    st.write(f"- {a}")
 
+    st.markdown("---")
+    st.subheader("Rapport Complet")
+    if st.button("Générer Statistiques Structurelles"):
+        st.info("Exécution de `statistiques_structure`...")
+        output, _ = capture_output(TP1.statistiques_structure, corpus_path)
+        st.text_area("Rapport Console", output, height=400)
