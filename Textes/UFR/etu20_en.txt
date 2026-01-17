@@ -1,0 +1,12 @@
+My third year in Computer Science went fairly well overall, even though some aspects could have been improved.
+The general organization was average: classes were sometimes cancelled at the last minute, and there was almost no follow-up on students’ work outside of class hours. That said, most of the professors offered high-quality and well-structured courses. Two courses : Cryptography and Turing Machines had a teaching approach that was too complex, which made learning difficult even though the content itself was very interesting.
+
+In terms of content, courses such as Operating Systems and Virtualization were the most engaging to me, as they were well explained, practical, and focused on areas of computer science that I find particularly appealing. Conversely, while Cryptography and Turing Machines are fascinating subjects, the way they were taught prevented me from fully appreciating them.
+
+Regarding pedagogy, most teachers explained concepts clearly and showed a real willingness to help students. Even for the most difficult subjects, professors remained very available to answer questions, whether in person or remotely.
+
+The assessment methods were clear and fair I have no criticism on that point. However, there was almost no personalized follow-up or support regarding projects or student life. As is often the case at university, students are quite left to their own devices.
+
+As for resources, the university provided good computer labs and allowed students to borrow equipment if needed. The Moodle platform worked well for accessing course materials and following instructions.
+
+In summary, I have a mixed impression of this year. I performed well academically, but it was the least interesting and the longest year of the degree, despite being relatively easy overall. The two most technical courses reduced my enthusiasm, even though I made efforts to work independently and catch up on what I struggled with.

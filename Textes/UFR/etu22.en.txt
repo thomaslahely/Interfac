@@ -1,0 +1,18 @@
+My Thoughts on the Third Year of the Computer Science Degree – Moulin de la Housse Campus
+
+My third year in the Computer Science program at the Moulin de la Housse campus was overall interesting, although my feelings varied quite a bit depending on the modules. Some courses really caught my attention, while others were less engaging for me.
+
+The Cryptography module was a bit disappointing. The topic itself was interesting, but we had to use Python without really learning the language beforehand. As a result, I struggled a bit with the practical part. I would have preferred to start with a few sessions introducing Python basics before tackling the cryptographic content. That would have made the exercises easier to follow and more meaningful.
+
+On the other hand, I really enjoyed the Automata module. It was very clear, well-structured, and logical. The concepts made sense, and the explanations made the theory much easier to grasp. I particularly liked this subject because it combines mathematical rigor with conceptual reasoning.
+I also found the INFO0501 – Graph Theory module very interesting. The algorithms were well presented, the exercises were concrete, and it required genuine reflection. It helped me strengthen my logical thinking and understanding of data structures, while still being enjoyable to study.
+
+The INFO0503 – Networks module was also fine. We learned how to set up TCP and UDP servers, use sockets, and understand communication protocols. The content was coherent and clearly explained, but this field doesn’t particularly interest me. Nevertheless, I found it useful to learn how data exchanges between applications actually work.
+
+I also really liked the Databases (BDD) module. It was well designed and very practical. The parts about data modeling and SQL were particularly enjoyable because they combined logic, precision, and hands-on work. I appreciated how quickly we could see concrete results, which made the subject more motivating.
+
+One of the highlights of the year was the GPS data analysis project. I really enjoyed working on it because it involved a lot of experimentation and independent thinking. The goal was to detect spoofing attacks using GPS data, and the project allowed me to apply what I had learned while exploring new approaches on my own. I also improved my skills in data processing and algorithm design using Excel and Python.
+
+Finally, the INFO0604 – High Performance Computing (HPC) module was dense but very interesting. I discovered tools such as OpenMP, MPI, and CUDA. Even though some parts were quite challenging, they gave me a good overview of parallel computing and Big Data. This module helped me understand the importance of performance and parallelization in large-scale data processing.
+
+Overall, this third year allowed me to explore many different areas of computer science. I particularly enjoyed the courses where theory and practice complemented each other, such as Automata, Graph Theory, Databases, and the GPS project. I was less interested in Cryptography and Networks, but these modules still helped me build a broader and more solid foundation in computer science.

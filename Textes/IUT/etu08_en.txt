@@ -1,0 +1,43 @@
+In June 2022, I attended the open house of the BUT Informatique (Bachelor of Technology in Computer Science) in Reims. It allowed me to discover this program, which I was particularly interested in at the time. That same year, I obtained my baccalaureate with specializations in Mathematics, NSI (Digital and Computer Science), and Physics-Chemistry, which I dropped in my final year.
+Following this, I joined the BUT Informatique program in Reims, a three-year degree.
+
+First Year
+
+During the first year, we studied the fundamentals of programming, starting with Python. We reviewed key concepts such as dictionaries, tuples, lists, and loops.
+We also learned how to design databases using MCD (Conceptual Data Model) and MPD (Physical Data Model), and how to manage and exploit them. In addition, we were introduced to virtual machine creation and network management.
+At the end of the year, we began learning another programming language, PHP, which introduced us to object-oriented programming.
+One of the strengths of the BUT program is its diversity — we also had courses outside computer science, such as business creation and economics, which broadened our skills.
+At the end of this first year, we had to choose among three specializations:
+
+Development in C++
+
+Development in C#
+
+Data: Administration, Management, and Exploitation of Databases
+
+Second Year
+
+I chose the Data specialization.
+During this year, we learned a new programming language, JavaScript, and focused mainly on object-oriented programming. We also studied APIs and Docker.
+In the Data field, we explored Big Data, strengthened our SQL skills, and worked with InfluxDB and MongoDB. We also practiced data visualization using Power BI.
+Outside of technical subjects, we had courses in accounting, IT law, and agile project management.
+The year concluded with a two-month internship in a company.
+
+Third Year
+
+In the final year, we completely moved away from web development to focus on Data, Artificial Intelligence development, and advanced database administration and management.
+We also created a fictional company project, allowing us to apply our project management and teamwork skills in a realistic context.
+
+My Experience
+
+What I appreciated the most about the IUT is the close relationship between students and teachers, as well as the emphasis on practical learning through numerous labs (TP) and tutorials (TD).
+We also completed many mini-projects, called SAÉ (Learning and Assessment Situations), which simulated real-world project conditions.
+I particularly enjoyed discovering Artificial Intelligence, a field I am passionate about. The Data professors were very friendly, and overall, I truly enjoyed my three years at the IUT — even though the building itself could definitely use some renovation!
+
+Areas for Improvement
+
+Facilities: The buildings are quite old and in poor condition; they should be renovated.
+
+Equipment: Increase the storage and computing quotas on the machines, as technical issues were frequent.
+
+Curriculum: In the second year, the program was too focused on web development, even though we had chosen the Data specialization.

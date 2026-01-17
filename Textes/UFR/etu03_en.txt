@@ -1,0 +1,18 @@
+UFR bachelor’s degree
+
+A look back at these three years of undergraduate study.
+
+During this period, we had the opportunity to discover many subjects that allowed us to acquire a foundation in many key areas, ranging from the basic principles of how the internet works to a detailed explanation of how different data exchanges operate and the issues related to these exchanges.
+We also covered aspects of systems, including processor scheduling, read/write management on storage disks, and the functioning of parent and child processes.
+
+In addition to this, there is also the whole aspect of multithreading and high-performance computing in order to provide optimal execution of our codes/applications, with the development of an ant battle royale as an example.
+
+Finally, 
+
+among the major topics covered, there was a whole section devoted to cryptography, with an understanding of the basic concepts and their implementation in Python. To complement this section, another module was dedicated to cybersecurity, also covering key concepts but also the practice and implementation of means of defence and attack.
+
+Among all these different topics, we were able to cover a multitude of different languages, practising C, C++, C#, R, Assembler, Java, Python, Bash and PL/SQL. This gives us a wide range of languages to use without having to learn everything.
+
+In conclusion, 
+
+one of the strengths of this degree programme is the opportunity to learn and experiment with a wide variety of concepts that are currently of great importance in the world of work and technology.

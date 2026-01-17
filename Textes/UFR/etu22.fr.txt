@@ -1,0 +1,18 @@
+Mon ressenti sur la Licence 3 Informatique – Faculté du Moulin de la Housse
+
+Mon année de L3 Informatique au campus du Moulin de la Housse a été globalement intéressante, même si j’ai eu des ressentis assez différents selon les modules. Certains m’ont vraiment passionné, alors que d’autres m’ont moins marqué.
+
+Le module de cryptographie m’a plutôt déçu. Le sujet est intéressant, mais on utilisait Python sans avoir réellement appris à s’en servir. Du coup, j’ai eu du mal à bien suivre la partie pratique. J’aurais aimé qu’on commence par quelques séances pour apprendre les bases du langage avant d’attaquer le contenu du cours. Cela aurait rendu les exercices plus accessibles et plus formateurs.
+
+En revanche, j’ai beaucoup aimé le module sur les automates, très clair et bien structuré. Les notions étaient logiques et les explications rendaient la théorie beaucoup plus accessible. C’est un domaine qui m’a particulièrement plu, car il combine la rigueur mathématique avec une vraie dimension conceptuelle.
+J’ai aussi trouvé le module INFO0501 sur les graphes particulièrement intéressant : les algorithmes étaient bien présentés, les exercices concrets, et ça demandait une vraie réflexion. C’est un module qui m’a permis de développer ma logique et ma compréhension des structures de données, tout en restant agréable à suivre.
+
+Le module INFO0503 sur les réseaux était, de son côté, plutôt correct. On y a appris à mettre en place des serveurs TCP et UDP, à utiliser des sockets et à comprendre le fonctionnement des protocoles de communication. Le contenu était cohérent et bien expliqué, mais ce n’est pas un domaine qui m’intéresse particulièrement. Je reconnais néanmoins que c’est un apprentissage utile, car il permet de mieux comprendre comment fonctionnent les échanges d’informations entre les applications.
+
+J’ai aussi beaucoup apprécié le module de Bases de Données (BDD). J’ai trouvé ce cours très bien construit et concret. La partie sur la modélisation des données et sur le langage SQL m’a particulièrement plu, car elle mêle logique, rigueur et application pratique. C’est un domaine que je trouve à la fois utile et satisfaisant, car on voit rapidement les résultats de ce qu’on fait.
+
+Un des moments que j’ai le plus appréciés cette année, c’est le projet d’analyse de données GPS. J’ai adoré travailler dessus, car il y avait une vraie part d’expérimentation et de réflexion. L’objectif était de détecter des attaques de spoofing à partir de données GPS, et ce projet m’a permis d’appliquer concrètement ce que j’avais appris tout en explorant par moi-même. J’ai aussi beaucoup appris en manipulant des fichiers Excel et en programmant des algorithmes d’analyse.
+
+Enfin, le module de Calcul Haute Performance (INFO0604) était dense mais très intéressant. J’ai découvert des outils comme OpenMP, MPI ou CUDA, et même si certaines notions étaient complexes, elles m’ont donné une bonne vision du calcul parallèle et du Big Data. Ce module m’a fait prendre conscience de l’importance de la performance et de la parallélisation dans le traitement de grandes quantités de données.
+
+Dans l’ensemble, cette année de L3 m’a permis de découvrir de nombreux domaines de l’informatique. J’ai particulièrement apprécié les cours où la logique et la pratique se complétaient bien, comme les automates, les graphes, la base de données et le projet GPS. J’ai un peu moins accroché à la cryptographie et aux réseaux, mais ces cours m’ont quand même permis d’acquérir une culture informatique plus large et des compétences utiles pour la suite.

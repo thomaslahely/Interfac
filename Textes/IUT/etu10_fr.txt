@@ -1,0 +1,24 @@
+Avant d'intégrer le Master IA, j'ai suivi un BUT Informatique. Ce cursus s'est déroulé en 3 ans. Durant les deux dernières années de la formation, j'ai intégré une spécialité Data qui couvraient les fondamentaux de l'analyse de données et une introduction rapide à l'intelligence artificielle. Les enseignements étaient variés et ne ciblés pas uniquement l'informatique. Par exemple, en lien avec l'informatique il pouvait y avoir du développement web, les notions de base du réseau, des notions de conteneurisation, gestion de bases de données, analyse de données, etc. Outre le côté informatique de la formation, il y avait des choses plus communes comme de la gestion de projet, des cours de communication, de projet personnel, gestion d'entreprises, anglais, etc.
+
+Chaque semestre étaient évalué sur des projets appelés SAE ou des examens en milieu ou fin de semestre.
+Pendant quelques mois, nos cours s'étaient passés en distanciel à cause d'un défaut sur le bâtiment de la formation, pouvant engendré un effondrement de celui-ci.
+
+Lors de cette formation, j'ai pu apprécié la sympathie de certains enseignants ou encore le contenu de certains cours qui étaient particulièrement intéressant. L'ambiance des groupes dans lesquels j'étais chaque année étaient plaisantes. 
+
+Cependant, malgré beaucoup de plaisir, j’ai aussi beaucoup de reproches et de points qui pourraient être améliorés.
+
+Je pense qu’il ne faudrait pas avoir quatre heures de cours d’affilée, car les deux dernières heures deviennent longues aussi bien pour les étudiants que pour le professeur, qui cherchera une attention qu’il aura perdue depuis la moitié du cours.
+
+Il faudrait privilégier les matières qui auront un réel impact sur l’avenir des étudiants, comme le développement, les mathématiques (statistiques, programmation, etc.) et l’anglais. Par exemple, j’aurais préféré travailler davantage mon anglais plutôt que de suivre d’autres cours qui ne me serviront jamais. Je ne dis pas qu’il faut supprimer les cours ayant moins d’utilité, mais plutôt revoir la proportion des heures.
+
+Il serait aussi important de mieux communiquer sur la charge de travail donnée aux étudiants, car tout donner dans une même période n’est pas très malin.
+
+Certains professeurs devraient être formés à mieux communiquer, car avec certains, on s’endort littéralement pendant les cours magistraux.
+
+Il faudrait également rester informé des technologies utilisées aujourd’hui en entreprise, afin de ne pas apprendre des outils ou des langages obsolètes. Je le note parce que certains professeurs semblent encore vivre vingt ans en arrière, même si j’applaudis sincèrement ceux qui font l’effort de rester à jour.
+
+Dans le même esprit, il ne devrait pas être accepté d’enseigner des versions dépassées de certains langages, comme en C++. Chaque année, les langages les plus populaires évoluent et sortent de nouvelles fonctionnalités ; alors pourquoi ne pas les enseigner ? Les langages changent, les cours devraient évoluer avec eux.
+
+Certains professeurs veulent trop faire des élèves des copies d’eux-mêmes. Par exemple, je trouve totalement non éducatif de supprimer entièrement le code d’un étudiant simplement parce qu’il ne correspond pas au goût du professeur. Le silence n’a jamais été une bonne manière d’enseigner. Expliquer le problème, en revanche, permet à l’étudiant de comprendre, de corriger et d’apprendre de son erreur. On apprend en se trompant, mais encore faut-il savoir pourquoi on s’est trompé.
+
+Enfin, il faudrait prendre plus de temps pour s’assurer que les étudiants ont compris ce qui est enseigné. Cela éviterait probablement d’avoir des moyennes de promotion entre 5 et 10 lors des TP. Il n’y a peut-être pas beaucoup de temps, mais noter pour noter n’a jamais permis à un étudiant d’apprendre correctement.

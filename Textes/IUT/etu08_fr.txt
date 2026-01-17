@@ -1,0 +1,42 @@
+En juin 2022, j’ai participé aux portes ouvertes du BUT Informatique de Reims. Cela m’a permis de découvrir cette formation qui m’attirait particulièrement à l’époque. La même année, j’ai obtenu mon baccalauréat avec les spécialités Mathématiques, NSI (Numérique et Sciences de l’Informatique) et Physique-Chimie, que j’ai abandonnée en terminale.
+À la suite de cela, j’ai intégré le BUT Informatique à Reims, une formation d’une durée de trois ans.
+
+Première année
+
+Lors de la première année, nous avons étudié les bases de la programmation, en commençant par le langage Python. Nous avons revu les notions fondamentales telles que les dictionnaires, les tuples, les listes, les boucles, etc.
+Nous avons également appris à concevoir des bases de données à l’aide de modèles MCD et MPD, puis à les exploiter. En parallèle, nous avons découvert la création de machines virtuelles et la gestion de réseaux.
+En fin d’année, nous avons abordé un nouveau langage de programmation : PHP, qui nous a permis d’introduire la programmation orientée objet.
+L’un des avantages du BUT est la diversité des enseignements : certaines matières, comme la création d’entreprise ou l’économie, élargissent nos compétences au-delà de l’informatique.
+À la fin de cette première année, trois parcours nous ont été proposés :
+
+Développement en C++
+
+Développement en C#
+
+Administration, gestion et exploitation des bases de données (Data)
+
+Deuxième année
+
+J’ai choisi le troisième parcours, orienté Data.
+Cette année-là, nous avons appris un nouveau langage, JavaScript, et approfondi la programmation orientée objet. Nous avons également étudié les API et Docker.
+Concernant la partie Data, nous avons abordé le Big Data, renforcé nos compétences en SQL, et découvert InfluxDB et MongoDB. Nous avons aussi réalisé de la visualisation de données avec Power BI.
+En dehors de l’informatique, nous avons eu des cours de comptabilité, de droit informatique et de méthodologie agile.
+Cette année s’est conclue par un stage de deux mois en entreprise.
+
+Troisième année
+
+En dernière année, nous avons mis de côté le développement web pour nous concentrer davantage sur la Data, l’intelligence artificielle, et l’administration avancée des bases de données. Nous avons également travaillé sur la création d’une entreprise fictive, ce qui nous a permis d’appliquer nos connaissances en gestion de projet.
+
+Mon ressenti
+
+Ce que j’ai particulièrement apprécié à l’IUT, c’est la proximité entre enseignants et étudiants, ainsi que la forte présence de travaux pratiques (TP) et de travaux dirigés (TD), qui permettent d’apprendre efficacement.
+Nous avons aussi réalisé de nombreux mini-projets, appelés SAÉ (Situations d’Apprentissage et d’Évaluation), qui nous mettaient dans des conditions réelles de travail.
+J’ai beaucoup aimé découvrir l’intelligence artificielle, un domaine qui m’intéresse particulièrement. Les professeurs du parcours Data étaient très sympathiques, et j’ai vraiment apprécié mes trois années à l’IUT — même si le bâtiment aurait bien besoin d’une rénovation !
+
+Points d’amélioration
+
+Infrastructures : rénover les bâtiments, en mauvais état et parfois malodorants.
+
+Matériel : augmenter les quotas et améliorer les performances des machines, souvent sujettes à des problèmes techniques.
+
+Programme : en deuxième année, le contenu était trop axé sur le développement web alors que nous étions dans le parcours Data.

@@ -1,0 +1,24 @@
+Before joining the Master AI, I followed a BUT Computer Science. This course took place over 3 years. During the last two years of the training, I integrated a Data specialty that covered the fundamentals of data analysis and a quick introduction to artificial intelligence. The lessons were varied and not only focused on computer science. For example, in connection with IT, there could be web development, network basics, containerization, database management, data analysis, etc. In addition to the IT side of the training, there were more common things such as project management, communication courses, personal project, business management, English, etc.
+
+Each semester was evaluated on projects called SAE or exams in the middle or end of the semester.
+For a few months, our classes were held remotely because of a defect in the training building, which could have caused it to collapse.
+
+During this training, I was able to appreciate the sympathy of some teachers or the content of some courses that were particularly interesting. The atmosphere of the groups in which I was each year was pleasant. 
+
+However, despite a lot of fun, I also have a lot of criticisms and points that could be improved.
+
+I don't think we should have four hours of class in a row, because the last two hours become long for both the students and the teacher, who will seek attention that he will have lost since the middle of the class.
+
+Priority should be given to subjects that will have a real impact on the future of students, such as development, mathematics (statistics, programming, etc.) and English. For example, I would have preferred to work more on my English rather than take other courses that will never be useful to me. I am not saying that we should eliminate the less useful courses, but rather review the proportion of hours.
+
+It would also be important to better communicate the workload given to students, because giving everything in the same period is not very smart.
+
+Some teachers should be trained to communicate better, because with some, we literally fall asleep during lectures.
+
+It would also be necessary to stay informed of the technologies used today in business, so as not to learn obsolete tools or languages. I note this because some teachers still seem to live twenty years in the past, even though I sincerely applaud those who make the effort to stay up to date.
+
+In the same spirit, it should not be accepted to teach outdated versions of certain languages, such as C ++. Every year, the most popular languages evolve and release new features; so why not teach them? Languages change, and courses should evolve with them.
+
+Some teachers want to make students copies of themselves too much. For example, I find it totally non-educational to completely delete a student's code simply because it does not match the teacher's taste. Silence has never been a good way to teach. Explaining the problem, on the other hand, allows the student to understand, correct, and learn from their mistake. We learn by making mistakes, but we still need to know why we were wrong.
+
+Finally, more time should be taken to ensure that students understand what is being taught. This would probably avoid having promotion averages between 5 and 10 during the TP. There may not be much time, but grading for the sake of grading has never allowed a student to learn properly.

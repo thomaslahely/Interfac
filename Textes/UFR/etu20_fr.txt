@@ -1,0 +1,12 @@
+Mon année de L3 Informatique s’est globalement bien déroulée, même si certains aspects restent perfectibles.
+L’organisation générale était moyenne : il arrivait régulièrement que des cours soient annulés au dernier moment, et il n’y avait pratiquement aucun suivi du travail des étudiants en dehors des heures de cours. Cela dit, la majorité des enseignants proposaient des cours de qualité et étaient pédagogues. Deux cours, cependant cryptographie et machines de Turing avaient une approche d’enseignement trop complexe, ce qui rendait l’apprentissage difficile même si, de base, le contenu du cours était très intéressant. 
+
+Du point de vue du contenu, les matières comme systèmes d’exploitation et virtualisation m’ont particulièrement intéressé, car elles étaient bien expliquées, concrètes et sont des aspects de l'informatique qui m'intéressent vraiment. À l’inverse, même si la cryptographie et les machines de Turing sont des domaines passionnants, la manière dont elles ont été enseignées ne m’a pas permis d’en tirer pleinement profit.
+
+Concernant la pédagogie, la plupart des enseignants expliquaient bien et faisaient preuve d’une réelle volonté d’aider les étudiants. Même pour les cours les plus difficiles, les professeurs restaient très disponibles pour répondre aux questions, que ce soit en présentiel ou à distance.
+
+Les modalités d’évaluation étaient claires et justes ; je n’ai rien à redire sur ce point. En revanche, il n’y avait pratiquement aucun suivi personnalisé ni accompagnement dans les projets ou la vie étudiante. Comme souvent à l’université, les étudiants sont assez livrés à eux-mêmes.
+
+Côté ressources, l’établissement disposait de bonnes salles informatiques et permettait d’emprunter du matériel si besoin. La plateforme Moodle fonctionnait bien pour retrouver les supports de cours et suivre les consignes.
+
+En résumé, je garde une impression mitigée de cette année. Je l’ai bien réussie sur le plan académique, mais c’est celle que j’ai trouvée la moins intéressante et la plus longue du cursus, malgré un niveau de difficulté globalement raisonnable. Les deux cours les plus techniques ont freiné mon intérêt, même si j’ai fait l’effort de travailler par moi-même pour combler mes difficultés.
