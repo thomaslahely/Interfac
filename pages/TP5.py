@@ -3,7 +3,7 @@ import sys
 import pandas as pd
 import math
 from pathlib import Path
-import app_TP5 as TP5
+import App_TP5 as TP5
 
 # --- Titre ---
 st.title("TP5 - Vectorisation Avancée et Mesures de Distance")
