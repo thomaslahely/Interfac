@@ -4,7 +4,7 @@ import pandas as pd
 import math
 from pathlib import Path
 import os
-import Interfac.App_TP7 as TP5
+import App_TP7 as TP5
 st.set_page_config(page_title="TP5 - Vectorisation Avancée", layout="wide")
 
 # --- Titre ---
