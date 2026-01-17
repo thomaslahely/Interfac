@@ -3,20 +3,7 @@ import sys
 import pandas as pd
 import math
 from pathlib import Path
-
-# --- Import dynamique du module TP5 (App_TP5.py) ---
-current_dir = Path(__file__).resolve().parent
-parent_dir = current_dir.parent
-# On assure que le parent (Interfac/) est dans le path
-if str(parent_dir) not in sys.path:
-    sys.path.append(str(parent_dir))
-
-try:
-    import App_TP5 as TP5
-except ImportError as e:
-    st.error(f"Erreur d'importation de App_TP5 : {e}")
-    st.info("Vérifiez que App_TP5.py est bien dans Interfac/")
-    st.stop()
+import App_TP5 as TP5
 
 # --- Titre ---
 st.title("TP5 - Vectorisation Avancée et Mesures de Distance")
