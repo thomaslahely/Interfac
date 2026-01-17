@@ -3,26 +3,7 @@ import sys
 import pandas as pd
 import math
 from pathlib import Path
-
-# --- Configuration de la page ---
-st.set_page_config(page_title="TP5 - Vectorisation & Distances", layout="wide")
-
-# --- Import dynamique du module TP5 ---
-current_dir = Path(__file__).resolve().parent
-parent_dir = current_dir.parent
-# On insère au début pour prioriser le module parent sur le script courant
-if str(parent_dir) not in sys.path:
-    sys.path.insert(0, str(parent_dir))
-
-try:
-    # On force le rechargement pour être sûr
-    import TP5
-    import importlib
-    importlib.reload(TP5)
-except ImportError as e:
-    st.error(f"Erreur d'importation de TP5 : {e}")
-    st.info("Structure attendue : TP5.py doit être dans le dossier parent 'Interfac/'.")
-    st.stop()
+import app_TP5 as TP5
 
 # --- Titre ---
 st.title("TP5 - Vectorisation Avancée et Mesures de Distance")

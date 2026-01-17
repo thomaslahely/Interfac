@@ -4,19 +4,7 @@ import matplotlib.pyplot as plt
 import io
 import pandas as pd
 from pathlib import Path
-
-# --- Import dynamique du module TP3 ---
-current_dir = Path(__file__).resolve().parent
-parent_dir = current_dir.parent
-if str(parent_dir) not in sys.path:
-    sys.path.append(str(parent_dir))
-
-try:
-    import TP3
-except ImportError as e:
-    st.error(f"Erreur d'importation de TP3 : {e}")
-    st.stop()
-
+import App_TP3 as TP3
 st.set_page_config(page_title="TP3 - Analyse de Corpus", layout="wide")
 
 st.title("TP3 - Analyse et Prétraitement de Corpus")

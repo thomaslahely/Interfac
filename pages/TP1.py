@@ -4,25 +4,11 @@ import os
 import io
 from pathlib import Path
 from contextlib import redirect_stdout
-
+import App_TP1 as TP1
 # Configuration de la page
 st.set_page_config(page_title="TP1 - Exploration de Corpus", layout="wide")
 
-# Gestion de l'import dynamique de TP1
-# TP1.py est dans Interfac/
-# L'app est dans Interfac/pages/
-# On doit remonter d'un niveau pour importer TP1
-current_dir = Path(__file__).resolve().parent
-parent_dir = current_dir.parent
-if str(parent_dir) not in sys.path:
-    sys.path.append(str(parent_dir))
 
-try:
-    import TP1
-except ImportError as e:
-    st.error(f"Erreur d'importation de TP1 : {e}")
-    st.info("Assurez-vous que TP1.py est bien dans le dossier Interfac/")
-    st.stop()
 
 st.title("TP1 - Exploration et Analyse de Corpus")
 st.markdown("""

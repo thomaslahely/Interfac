@@ -3,24 +3,10 @@ import sys
 import pandas as pd
 import math
 from pathlib import Path
-
+import App_TP4 as TP4
 # --- Configuration de la page ---
 st.set_page_config(page_title="TP4 - Vectorisation & Modèles", layout="wide")
 
-# --- Import dynamique du module TP4 ---
-# Le fichier app est dans Interfac/pages/
-# Le module TP4.py est dans Interfac/
-current_dir = Path(__file__).resolve().parent
-parent_dir = current_dir.parent
-if str(parent_dir) not in sys.path:
-    sys.path.append(str(parent_dir))
-
-try:
-    import TP4
-except ImportError as e:
-    st.error(f"Erreur d'importation de TP4 : {e}")
-    st.info("Structure attendue : TP4.py doit être dans le dossier parent 'Interfac/'.")
-    st.stop()
 
 # --- Titre et Intro ---
 st.title("TP4 - Vectorisation de Texte et Modèles Mathématiques")
