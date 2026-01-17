@@ -24,15 +24,21 @@ corpus_path_input = st.sidebar.text_input("Chemin du corpus", value="Textes")
 # Fonction pour charger le corpus (mise en cache pour éviter de recharger à chaque interaction)
 @st.cache_data
 def load_corpus(path_str):
+    # 1. Essai Direct (relatif au CWD)
     path = Path(path_str)
     if not path.exists():
-        # Tentative de résolution relative à la racine du projet
-        # Le fichier est dans Interfac/pages/, donc la racine est 2 niveaux au-dessus
-        possible_root = Path(__file__).resolve().parents[2]
-        possible_path = possible_root / path_str
+        # 2. Essai Relatif au fichier Home.py (dossier parent 'Interfac')
+        # Structure: .../Interfac/pages/ThisFile.py
+        # On remonte de 1 niveau pour arriver dans Interfac/
+        possible_interfac = Path(__file__).resolve().parent.parent / path_str
         
-        if possible_path.exists():
-            path = possible_path
+        # 3. Essai Relatif à la racine du projet (2 niveaux au-dessus)
+        possible_root = Path(__file__).resolve().parent.parent.parent / path_str
+
+        if possible_interfac.exists():
+            path = possible_interfac
+        elif possible_root.exists():
+            path = possible_root
         else:
              return None, None, None
     
