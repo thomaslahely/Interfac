@@ -3,11 +3,11 @@ import TP5
 import pandas as pd
 import math
 
-st.set_page_config(page_title="TP5 - Vectorisation Avancée", layout="wide")
+st.set_page_config(page_title="TP4 - Vectorisation Avancée", layout="wide")
 
-st.title("TP5 - Vectorisation de Documents et Agrégation")
+st.title("TP4 - Vectorisation de Documents et Agrégation")
 st.markdown("""
-Cette interface permet de tester les fonctions du TP5 : Vectorisation de phrases, de documents (sac de mots global) et agrégation de vecteurs.
+Cette interface permet de tester les fonctions du TP4 : Vectorisation de phrases, de documents (sac de mots global) et agrégation de vecteurs.
 """)
 
 # --- Sidebar: Vocabulaire & IDF ---

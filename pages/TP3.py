@@ -3,11 +3,11 @@ import TP4
 import pandas as pd
 import math
 
-st.set_page_config(page_title="TP4 - Vectorisation & Modèles", layout="wide")
+st.set_page_config(page_title="TP3 - Vectorisation & Modèles", layout="wide")
 
-st.title("TP4 - Vectorisation de Texte et Modèles de Langage")
+st.title("TP3 - Vectorisation de Texte et Modèles de Langage")
 st.markdown("""
-Cette interface permet de tester les fonctions du TP4 : Encodage, One-Hot, Bag-of-Words, TF-IDF, BM25, Normalisation et N-grammes.
+Cette interface permet de tester les fonctions du TP3 : Encodage, One-Hot, Bag-of-Words, TF-IDF, BM25, Normalisation et N-grammes.
 """)
 
 # --- Sidebar: Vocabulaire ---

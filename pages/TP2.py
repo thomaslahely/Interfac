@@ -4,11 +4,11 @@ import matplotlib.pyplot as plt
 import io
 import pandas as pd
 
-st.set_page_config(page_title="TP3 - Analyse de Corpus", layout="wide")
+st.set_page_config(page_title="TP2 - Analyse de Corpus", layout="wide")
 
-st.title("TP3 - Analyse et Prétraitement de Corpus")
+st.title("TP2 - Analyse et Prétraitement de Corpus")
 st.markdown("""
-Cette interface permet de tester les fonctions du TP3 : segmentation, tokenisation, n-grammes, statistiques et pipelines de prétraitement.
+Cette interface permet de tester les fonctions du TP2 : segmentation, tokenisation, n-grammes, statistiques et pipelines de prétraitement.
 """)
 
 # --- Sidebar: Configuration Globale ---
