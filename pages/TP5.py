@@ -26,7 +26,15 @@ corpus_path_input = st.sidebar.text_input("Chemin du corpus", value="Textes")
 def load_corpus(path_str):
     path = Path(path_str)
     if not path.exists():
-        return None, None, None
+        # Tentative de résolution relative à la racine du projet
+        # Le fichier est dans Interfac/pages/, donc la racine est 2 niveaux au-dessus
+        possible_root = Path(__file__).resolve().parents[2]
+        possible_path = possible_root / path_str
+        
+        if possible_path.exists():
+            path = possible_path
+        else:
+             return None, None, None
     
     # 1. Métadonnées
     meta = TP6.construire_meta_corpus(path)
