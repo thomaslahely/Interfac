@@ -5,11 +5,11 @@ import io
 from pathlib import Path
 import tempfile
 
-st.set_page_config(page_title="TP2 - Traitement de Texte", layout="wide")
+st.set_page_config(page_title="TP1 - Traitement de Texte", layout="wide")
 
-st.title("TP2 - Interface de Test")
+st.title("TP1 - Interface de Test")
 st.markdown("""
-Cette interface permet de tester les fonctions du TP2 pour le traitement de texte.
+Cette interface permet de tester les fonctions du TP1 pour le traitement de texte.
 Entrez un texte ou téléchargez un fichier pour commencer.
 """)
 
