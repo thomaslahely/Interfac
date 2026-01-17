@@ -3,3 +3,7 @@ matplotlib
 numpy
 pandas
 seaborn
+gensim
+scikit-learn
+wordcloud
+scipy

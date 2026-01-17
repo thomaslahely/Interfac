@@ -13,10 +13,13 @@ st.set_page_config(page_title="TP6 - Embeddings & Expansion", layout="wide")
 current_dir = Path(__file__).resolve().parent
 parent_dir = current_dir.parent
 if str(parent_dir) not in sys.path:
-    sys.path.append(str(parent_dir))
+    # Priorité au module parent
+    sys.path.insert(0, str(parent_dir))
 
 try:
     import TP6
+    import importlib
+    importlib.reload(TP6)
 except ImportError as e:
     st.error(f"Erreur d'importation de TP6 : {e}")
     st.info("Structure attendue : TP6.py doit être dans le dossier parent 'Interfac/'.")

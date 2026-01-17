@@ -1,8 +1,21 @@
 import streamlit as st
-import Interfac.pages.TP4 as TP4
+import sys
 import matplotlib.pyplot as plt
 import io
 import pandas as pd
+from pathlib import Path
+
+# --- Import dynamique du module TP3 ---
+current_dir = Path(__file__).resolve().parent
+parent_dir = current_dir.parent
+if str(parent_dir) not in sys.path:
+    sys.path.append(str(parent_dir))
+
+try:
+    import TP3
+except ImportError as e:
+    st.error(f"Erreur d'importation de TP3 : {e}")
+    st.stop()
 
 st.set_page_config(page_title="TP3 - Analyse de Corpus", layout="wide")
 
@@ -53,7 +66,7 @@ with tab1:
     }
     
     if st.button("Segmenter Phrases"):
-        phrases = TP4.segmenter_phrases(raw_text, abreviations=abbr_list, option=options_seg)
+        phrases = TP3.segmenter_phrases(raw_text, abreviations=abbr_list, option=options_seg)
         st.write(f"**Nombre de phrases :** {len(phrases)}")
         for i, p in enumerate(phrases):
             st.text(f"{i+1}: {p}")
@@ -64,13 +77,13 @@ with tab1:
     
     if st.button("Tokeniser Document"):
         # On refait la segmentation pour être sûr d'avoir les dernières options
-        doc_tokens = TP4.tokeniser_document(raw_text, abreviations=abbr_list, option=options_seg, balise=keep_tags)
+        doc_tokens = TP3.tokeniser_document(raw_text, abreviations=abbr_list, option=options_seg, balise=keep_tags)
         st.write("**Résultat (Liste de listes de tokens) :**")
         st.json(doc_tokens)
         
-        flat_tokens = TP4.aplatir_tokens(doc_tokens)
+        flat_tokens = TP3.aplatir_tokens(doc_tokens)
         st.write(f"**Total tokens :** {len(flat_tokens)}")
-        st.write(f"**Hapax (occurence unique) :** {TP4.tokens_hapax(flat_tokens)}")
+        st.write(f"**Hapax (occurence unique) :** {TP3.tokens_hapax(flat_tokens)}")
 
 # --- Tab 2: N-grammes ---
 with tab2:
@@ -81,17 +94,17 @@ with tab2:
     
     if st.button("Générer N-grammes"):
         # Préparation des données selon le niveau attendu par la fonction
-        doc_tokens = TP4.tokeniser_document(raw_text, abreviations=abbr_list, option=options_seg)
+        doc_tokens = TP3.tokeniser_document(raw_text, abreviations=abbr_list, option=options_seg)
         
         if niveau == "phrase":
             # Pour la démo, on montre les n-grammes de la première phrase ou de toutes les phrases séparément
             st.write("N-grammes par phrase :")
             for i, phrase in enumerate(doc_tokens):
-                grams = TP4.generer_ngrammes(phrase, n_val, niveau='phrase')
+                grams = TP3.generer_ngrammes(phrase, n_val, niveau='phrase')
                 st.write(f"Phrase {i+1}: {grams}")
         else:
             # Niveau document
-            grams = TP4.generer_ngrammes(doc_tokens, n_val, niveau='document', par_phrase=par_phrase)
+            grams = TP3.generer_ngrammes(doc_tokens, n_val, niveau='document', par_phrase=par_phrase)
             st.write(f"N-grammes du document ({len(grams)}) :")
             st.write(grams)
 
@@ -100,19 +113,19 @@ with tab3:
     st.subheader("Analyse Statistique")
     
     # On crée un mini corpus avec 1 document pour utiliser les fonctions de corpus
-    corpus_demo = {"doc1": TP4.tokeniser_document(raw_text, abreviations=abbr_list, option=options_seg)}
-    stopwords_list = TP4.construire_liste_stopwords(langue)
+    corpus_demo = {"doc1": TP3.tokeniser_document(raw_text, abreviations=abbr_list, option=options_seg)}
+    stopwords_list = TP3.construire_liste_stopwords(langue)
     
     if st.button("Calculer Statistiques"):
-        stats = TP4.statistiques_globales_corpus(corpus_demo, stopwords_list)
+        stats = TP3.statistiques_globales_corpus(corpus_demo, stopwords_list)
         st.json(stats)
         
         st.subheader("Distribution")
-        dist_len_mots = TP4.distribution_longueur_mots(corpus_demo)
+        dist_len_mots = TP3.distribution_longueur_mots(corpus_demo)
         st.bar_chart(pd.Series(dist_len_mots))
         
         st.subheader("Top Tokens")
-        top = TP4.tokens_plus_frequents(corpus_demo, n=10)
+        top = TP3.tokens_plus_frequents(corpus_demo, n=10)
         if top:
             df_top = pd.DataFrame(top, columns=["Token", "Fréquence"])
             st.dataframe(df_top)
@@ -138,8 +151,8 @@ with tab4:
     
     if st.button("Appliquer Pipeline"):
         # Tokenisation initiale
-        doc_tokens = TP4.tokeniser_document(raw_text, abreviations=abbr_list, option=options_seg)
-        tokens_flat = TP4.aplatir_tokens(doc_tokens)
+        doc_tokens = TP3.tokeniser_document(raw_text, abreviations=abbr_list, option=options_seg)
+        tokens_flat = TP3.aplatir_tokens(doc_tokens)
         
         st.write("Tokens initiaux :", tokens_flat)
         
@@ -153,14 +166,17 @@ with tab4:
             "lemmatisation": do_lemm
         }
         
-        # 1. Filtrage
-        tokens_filtered = TP4.pipeline_filtrage(tokens_flat, config, langue)
-        st.write("Après filtrage :", tokens_filtered)
-        
-        # 2. Morphologie
-        tokens_final = TP4.pipeline_morphologique(tokens_filtered, config, langue)
-        st.success(f"Résultat final ({len(tokens_final)} tokens) :")
-        st.write(tokens_final)
+        try:
+            # 1. Filtrage
+            tokens_filtered = TP3.pipeline_filtrage(tokens_flat, config, langue)
+            st.write("Après filtrage :", tokens_filtered)
+            
+            # 2. Morphologie
+            tokens_final = TP3.pipeline_morphologique(tokens_filtered, config, langue)
+            st.success(f"Résultat final ({len(tokens_final)} tokens) :")
+            st.write(tokens_final)
+        except AttributeError:
+             st.error("Les pipelines ne semblent pas implémentés dans TP3.py.")
 
 # --- Tab 5: Comparaison Pipelines ---
 with tab5:
@@ -175,16 +191,7 @@ with tab5:
     
     if st.button("Lancer Comparaison"):
         # Création corpus
-        corpus_demo = {"doc1": TP4.tokeniser_document(raw_text, abreviations=abbr_list, option=options_seg)}
-        
-        # On doit adapter légèrement car 'analyser_configurations' attend un corpus brut ou tokenisé ?
-        # Regardons le code de TP3.py : 'pipeline_pretraitement' prend un corpus.
-        # 'analyser_configurations' appelle 'pipeline_pretraitement'.
-        # 'pipeline_pretraitement' appelle 'aplatir_tokens' si c'est une liste de listes.
-        # Donc on peut passer notre corpus_demo tokenisé.
-        
-        # Cependant, 'analyser_configurations' n'est pas complètement implémentée dans l'extrait lu (il manque la fin).
-        # Je vais implémenter la logique ici manuellement pour être sûr.
+        corpus_demo = {"doc1": TP3.tokeniser_document(raw_text, abreviations=abbr_list, option=options_seg)}
         
         configs = {
             "A (Brut)": {"stopwords": False, "longueur_min": 0, "non_alphabetiques": False, "stemming": False, "lemmatisation": False},
@@ -198,20 +205,23 @@ with tab5:
         
         for name, conf in configs.items():
             # Traitement
-            corpus_traite = TP4.pipeline_pretraitement(corpus_demo, conf, langue)
-            tokens = corpus_traite["doc1"]
-            
-            # Stats
-            vocab = TP4.distribution_occurrences_tokens(corpus_traite)
-            stats_lex = TP4.indicateurs_lexicaux(corpus_traite)
-            
-            res_row = {
-                "Config": name,
-                "Tokens": len(tokens),
-                "Vocabulaire": len(vocab),
-                "Richesse": f"{stats_lex['richesse_lexicale']:.2f}",
-                "Hapax": f"{stats_lex['taux_hapax']:.2f}"
-            }
-            results.append(res_row)
+            try:
+                corpus_traite = TP3.pipeline_pretraitement(corpus_demo, conf, langue)
+                tokens = corpus_traite["doc1"]
+                
+                # Stats
+                vocab = TP3.distribution_occurrences_tokens(corpus_traite)
+                stats_lex = TP3.indicateurs_lexicaux(corpus_traite)
+                
+                res_row = {
+                    "Config": name,
+                    "Tokens": len(tokens),
+                    "Vocabulaire": len(vocab),
+                    "Richesse": f"{stats_lex['richesse_lexicale']:.2f}",
+                    "Hapax": f"{stats_lex['taux_hapax']:.2f}"
+                }
+                results.append(res_row)
+            except AttributeError:
+                st.warning(f"Configuration {name} ignorée (pipeline manquant).")
             
         st.table(pd.DataFrame(results))
