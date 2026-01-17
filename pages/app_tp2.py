@@ -13,8 +13,6 @@ Cette interface permet de tester les fonctions du TP2 pour le traitement de text
 Entrez un texte ou téléchargez un fichier pour commencer.
 """)
 
-# Sidebar for navigation or global settings
-st.sidebar.header("Options")
 
 # Input section
 st.header("1. Entrée")
