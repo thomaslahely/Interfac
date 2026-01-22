@@ -1014,7 +1014,7 @@ def test_standardiser_zscore():
 # * Construire le dictionnaire inverse {index : tuple}.
 # * Retourner les deux dictionnaires.
 
-def construire_dictionnaire_ngrammes(vocabulaire_ngrammes: List[Tuple[str, ...]]) -> Tuple[Dict[Tuple[str, ...], int], Dict[int, Tuple[str, ...]]]:
+def construire_dictionnaire_ngrammes(vocabulaire_ngrammes: List[Tuple[str, ...]]) -> Tuple[List[Tuple[str, ...]], Dict[Tuple[str, ...], int], Dict[int, Tuple[str, ...]]]:
     """
     Construit les dictionnaires d'indexation pour une liste de n-grammes.
     
@@ -1022,7 +1022,7 @@ def construire_dictionnaire_ngrammes(vocabulaire_ngrammes: List[Tuple[str, ...]]
         vocabulaire_ngrammes: Liste de tuples (ex: [('chat', 'dort'), ...])
         
     Returns:
-        Un tuple contenant (dictionnaire_direct, dictionnaire_inverse)
+        Un tuple contenant (liste_triee, dictionnaire_direct, dictionnaire_inverse)
     """
     # 1. Tri pour le déterminisme (important pour reproduire les résultats)
     # On convertit en liste si ce n'est pas le cas, puis on trie
@@ -1036,7 +1036,7 @@ def construire_dictionnaire_ngrammes(vocabulaire_ngrammes: List[Tuple[str, ...]]
         dict_direct[ngramme] = index
         dict_inverse[index] = ngramme
         
-    return dict_direct, dict_inverse
+    return vocab_trie, dict_direct, dict_inverse
 
 ### 🔍 Explication des tests unitaires — Indexation N-grammes
 # 1. **Indexation correcte :** Vérifier que chaque n-gramme a un ID unique.
@@ -1053,7 +1053,7 @@ def test_construire_dictionnaire_ngrammes():
     ]
     
     # Exécution
-    d_direct, d_inverse = construire_dictionnaire_ngrammes(input_ngrammes)
+    vocab_trie, d_direct, d_inverse = construire_dictionnaire_ngrammes(input_ngrammes)
     
     # Test 1 : Vérification de la taille
     assert len(d_direct) == 3
@@ -1070,7 +1070,7 @@ def test_construire_dictionnaire_ngrammes():
     assert d_inverse[idx] == ngramme_test
     
     # Test 4 : Input vide
-    d1, d2 = construire_dictionnaire_ngrammes([])
+    l1, d1, d2 = construire_dictionnaire_ngrammes([])
     assert d1 == {} and d2 == {}
 
     print("Test construire_dictionnaire_ngrammes : OK")
