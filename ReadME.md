@@ -12,6 +12,10 @@ Ce projet regroupe les TPs. Il inclut une interface graphique fait avec **Stream
 1.  **Persistance des Données (Session State) :** Utilisation de `st.session_state` pour éviter que l'index du moteur de recherche  ou les modèles chargés disparaissent à chaque interaction utilisateur.
 2.  **Dynamique :** Dans le moteur de recherche, l'utilisateur peut changer la mesure de distance (Cosinus vs Jaccard) après avoir fait une recherche, sans tout recalculer.
 
+### Si lancement de l'application échoue
+
+[Lien vers l'application web](https://interfac-2lehqrarquaxbhqverno9u.streamlit.app/)
+
 
 
 
