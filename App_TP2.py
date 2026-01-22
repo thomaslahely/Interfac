@@ -1,12 +1,9 @@
-import sys
 from contextlib import redirect_stdout
-import io
 import unicodedata
 from pathlib import Path
 import shutil
 from unittest.mock import patch
 from collections import defaultdict
-import xml
 import string
 import re
 
